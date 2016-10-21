@@ -25,6 +25,8 @@ HEADERS = {
     'Content-type': 'application/json'
 }
 
+TIMEOUT = 55
+
 api_key = ''
 locale = 'en'
 
@@ -54,7 +56,10 @@ class _Resource(object):
             HEADERS['Accept-Language'] = locale
 
         absolute_url = API_BASE + path
-        request = Http(ca_certs=os.path.join(os.path.dirname(__file__), 'ssl_data/ca_bundle.crt')).request
+        request = Http(
+            ca_certs=os.path.join(os.path.dirname(__file__), 'ssl_data/ca_bundle.crt'),
+            timeout=TIMEOUT
+        ).request
         if method == 'GET':
             if params is None:
                 url = absolute_url
